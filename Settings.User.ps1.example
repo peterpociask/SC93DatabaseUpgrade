@@ -1,0 +1,6 @@
+@{
+    # Environment Details
+    'UserName'                    = 'USERNAME';
+    'Password'                    = 'PASSWORD;
+    'ServerInstance'              = 'SERVERINSTANCE';
+}
