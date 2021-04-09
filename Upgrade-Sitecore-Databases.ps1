@@ -1,8 +1,8 @@
 Param(
-    [string]$SettingsPath = "$PSScriptRoot\Settings.ps1",
-    [string]$UserSettingsPath = "$PSScriptRoot\Settings.User.ps1",
-    [string]$SitecoreBaseVersion = "",
-    [HashTable]$CustomSettings = @{}
+  [string]$SettingsPath = "$PSScriptRoot\Settings.ps1",
+  [string]$UserSettingsPath = "$PSScriptRoot\Settings.User.ps1",
+  [string]$SitecoreBaseVersion = "",
+  [HashTable]$CustomSettings = @{}
 )
 
 $ErrorActionPreference = 'Inquire'
@@ -21,143 +21,172 @@ $Settings = Invoke-GetSettings -SettingsPath $SettingsPath -UserSettingsPath $Us
 
 # Run the CMS_core_master_web9x.sql script for the Core, Master, and Web databases.
 $params = @{
-    'Database'        = $Settings.MasterDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core_master_web_9x.sql
+  'Database'        = $Settings.MasterDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core_master_web_9x.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the CMS_core_master_web9x.sql script for the Master database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 $params = @{
-    'Database'        = $Settings.CoreDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core_master_web_9x.sql
+  'Database'        = $Settings.CoreDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core_master_web_9x.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the CMS_core_master_web9x.sql script for the Core database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 $params = @{
-    'Database'        = $Settings.WebDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core_master_web_9x.sql
+  'Database'        = $Settings.WebDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core_master_web_9x.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the CMS_core_master_web9x.sql script for Web database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the CMS_core.sql script for the Core database
 $params = @{
-    'Database'        = $Settings.CoreDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core.sql
+  'Database'        = $Settings.CoreDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\CMS_core.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the CMS_core.sql script for the Core database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the SXP_processing_tasks.sql script for the Processing.tasks database.
 $params = @{
-    'Database'        = $Settings.ProcessingTasksDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_processing_tasks.sql
+  'Database'        = $Settings.ProcessingTasksDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_processing_tasks.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the SXP_processing_tasks.sql script for the Processing.tasks database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the SXP_experienceforms_storage.sql for the ExperienceForms database.
 $params = @{
-    'Database'        = $Settings.ExperienceFormsDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_experienceforms_storage.sql
+  'Database'        = $Settings.ExperienceFormsDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_experienceforms_storage.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the SXP_experienceforms_storage.sql for the ExperienceForms database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the SXP_experienceforms_filestorage.sql for the ExperienceForms database.
 $params = @{
-    'Database'        = $Settings.ExperienceFormsDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_experienceforms_filestorage.sql
+  'Database'        = $Settings.ExperienceFormsDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_experienceforms_filestorage.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the SXP_experienceforms_filestorage.sql for the ExperienceForms database.")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the SXP_reporting.sql script for the Reporting database.
 $params = @{
-    'Database'        = $Settings.ReportingDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_reporting.sql
+  'Database'        = $Settings.ReportingDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'QueryTimeout' = 10000
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_reporting.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running the SXP_reporting.sql script for the Reporting database.")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the SXP_reporting_migrate_experience_optimization_data.sql for the Reporting database.
 $params = @{
-    'Database'        = $Settings.ReportingDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_reporting_migrate_experience_optimization_data.sql
+  'Database'        = $Settings.ReportingDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'QueryTimeout'    = 360
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_reporting_migrate_experience_optimization_data.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running SXP_reporting_migrate_experience_optimization_data.sql for the Reporting database.")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
@@ -165,17 +194,20 @@ try {
 # If you are upgrading from Sitecore XP 9.0.1, you must upgrade the Messaging database.
 # To upgrade the Messaging database, run the SXP_Messaging.sql script
 $params = @{
-    'Database'        = $Settings.MessagingDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_Messaging.sql
+  'Database'        = $Settings.MessagingDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_Messaging.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Running SXP_Messaging.sql")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
@@ -185,83 +217,131 @@ try {
 # Repeat this step until you receive the “definitions cannot be migrated” message.
 
 $params = @{
-    'Database'        = $Settings.ReferenceDataDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_referencedata_Part1.sql
+  'Database'        = $Settings.ReferenceDataDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'QueryTimeout'    = 360
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_referencedata_Part1.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Upgrade the xDB Reference Data database")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 $params = @{
-    'Database'        = $Settings.ReferenceDataDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_referencedata_Part2.sql
+  'Database'        = $Settings.ReferenceDataDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_referencedata_Part2.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Upgrade the xDB Reference Data database part 2")
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 
 # Upgrade ShardMapManagerDatabase
 $params = @{
-    'Database'        = $Settings.ReferenceDataDatabase
+  'Database'        = $Settings.ReferenceDataDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_collection_smm.sql
+}
+try {
+  Write-Host("Upgrade ShardMapManagerDatabase")
+  Invoke-Sqlcmd @params
+}
+catch {
+  "error when running sql:"
+  Write-Host($_.Error)
+  Write-Host($_.Exception.Message)
+}
+
+#Upgrade Shard Databases
+$Settings.ShardDatabases | ForEach-Object {
+  $params = @{
+    'Database'        = $PSItem
     'ServerInstance'  = $Settings.ServerInstance
     'Username'        = $Settings.UserName
     'Password'        = $Settings.Password
     'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_collection_smm.sql
-}
-try {
-   Invoke-Sqlcmd @params
-} catch {
-  "error when running sql:"
-  Write-Host($_.Exception.Message)
-}
+    'QueryTimeout'    = 360
+    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_collection_GrantPermissions.sql
+  }
 
+  try {
+    Write-Host("Upgrade Shard Database $PSItem")
+    Invoke-Sqlcmd @params
+  }
+  catch {
+    "error when running sql:"
+    Write-Host($_.Error)
+    Write-Host($_.Exception.Message)
+  }
+
+  $params.Query = Get-Content -Raw -Path .\Scripts\SXP_collection_Part1.sql
+  try {
+    Invoke-Sqlcmd @params
+  }
+  catch {
+    "error when running sql:"
+    Write-Host($_.Error)
+    Write-Host($_.Exception.Message)
+  }
+}
 
 # XDB collection upgrade?
 
 # Run the SXP_processing_pools.sql script for the Xdb Processing Pools database.
 $params = @{
-    'Database'        = $Settings.ProcessingPoolsDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_processing_pools.sql
+  'Database'        = $Settings.ProcessingPoolsDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_processing_pools.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+  Write-Host("Run the SXP_processing_pools.sql script for the Xdb Processing Pools database " + $Settings.ProcessingPoolsDatabase)
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
 
 # Run the SXP_marketingautomation.sql script for the Xdb Marketing Automation database.
 $params = @{
-    'Database'        = $Settings.MarketingAutomationDatabase
-    'ServerInstance'  = $Settings.ServerInstance
-    'Username'        = $Settings.UserName
-    'Password'        = $Settings.Password
-    'OutputSqlErrors' = $true
-    'Query'           = Get-Content -Raw -Path .\Scripts\SXP_marketingautomation.sql
+  'Database'        = $Settings.MarketingAutomationDatabase
+  'ServerInstance'  = $Settings.ServerInstance
+  'Username'        = $Settings.UserName
+  'Password'        = $Settings.Password
+  'OutputSqlErrors' = $true
+  'Query'           = Get-Content -Raw -Path .\Scripts\SXP_marketingautomation.sql
 }
 try {
-   Invoke-Sqlcmd @params
-} catch {
+   Write-Host("Run the  SXP_marketingautomation.sql script for the Xdb Marketing Automation database " +  $Settings.MarketingAutomationDatabase)
+  Invoke-Sqlcmd @params
+}
+catch {
   "error when running sql:"
+  Write-Host($_.Error)
   Write-Host($_.Exception.Message)
 }
